@@ -142,10 +142,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ast.h" />
     <ClInclude Include="catch.hpp" />
     <ClInclude Include="token.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ast.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="token.cpp" />
     <ClCompile Include="token_tests.cpp" />
