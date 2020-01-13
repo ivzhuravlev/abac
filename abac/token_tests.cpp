@@ -91,3 +91,14 @@ TEST_CASE("Tokenize expression", "[token]")
 		REQUIRE(vec[12].value == ")");
 	}
 }
+
+TEST_CASE("Tokenize unary operators", "[token]")
+{
+	auto vec = tokenize("-1 + -2 + +2");
+	REQUIRE(vec.size() == 5);
+	REQUIRE(vec[0].value == "-1");
+	REQUIRE(vec[1].value == "+");
+	REQUIRE(vec[2].value == "-2");
+	REQUIRE(vec[3].value == "+");
+	REQUIRE(vec[4].value == "2");
+}
