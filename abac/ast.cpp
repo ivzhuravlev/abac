@@ -12,16 +12,22 @@ OperatorNode::OperatorNode(OperatorType type,
 
 double OperatorNode::eval() const
 {
+	const double left = left_->eval();
+	const double right = right_->eval();
 	switch (type_)
 	{
 	case calc::OperatorType::Plus:
-		return left_->eval() + right_->eval();
+		return left + right;
 	case calc::OperatorType::Minus:
-		return left_->eval() - right_->eval();
+		return left - right;
 	case calc::OperatorType::Prod:
-		return left_->eval() * right_->eval();
+		return left * right;
 	case calc::OperatorType::Div:
-		return left_->eval() / right_->eval();
+		if (right == 0)
+		{
+			throw std::logic_error("Zero division");
+		}
+		return left / right;
 	default:
 		throw std::logic_error("Unknown operator");
 	}

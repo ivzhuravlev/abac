@@ -148,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ast.cpp" />
+    <ClCompile Include="ast_tests.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="token.cpp" />
     <ClCompile Include="token_tests.cpp" />
