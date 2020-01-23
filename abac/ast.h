@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <map>
 
 #include "token.h"
 
@@ -24,10 +25,15 @@ public:
 class OperatorNode : public Node
 {
 public:
+	OperatorNode(OperatorType);
 	OperatorNode(OperatorType, std::shared_ptr<Node>, std::shared_ptr<Node>);
+	int precedence() const;
 	double eval() const override;
+	void setLeftNode(std::shared_ptr<Node>);
+	void setRightNode(std::shared_ptr<Node>);
 
 private:
+	static const std::map<OperatorType, int> precedence_;
 	OperatorType type_;
 	std::shared_ptr<Node> left_;
 	std::shared_ptr<Node> right_;
@@ -44,6 +50,6 @@ private:
 	double value_ = 0;
 };
 
-//std::shared_ptr<Node> buildAST(const std::vector<Token>& tokens);
+std::shared_ptr<Node> buildAST(const std::vector<Token>& tokens);
 
 } // calc
