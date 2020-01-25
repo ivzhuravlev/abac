@@ -53,4 +53,19 @@ TEST_CASE("Build AST", "[ast]")
 		auto ast = buildAST(tokens);
 		REQUIRE(ast->eval() == 38);
 	}
+
+	SECTION("Division")
+	{
+		auto tokens = tokenize("25 / 2.5");
+		auto ast = buildAST(tokens);
+		REQUIRE(ast->eval() == 10);
+	}
+
+	SECTION("Division zero")
+	{
+		auto tokens = tokenize("25 / 0");
+		auto ast = buildAST(tokens);
+		REQUIRE_THROWS_AS(ast->eval() == 10, logic_error);
+	}
+
 }

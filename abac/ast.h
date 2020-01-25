@@ -27,10 +27,11 @@ class OperatorNode : public Node
 public:
 	OperatorNode(OperatorType);
 	OperatorNode(OperatorType, std::shared_ptr<Node>, std::shared_ptr<Node>);
-	int precedence() const;
-	double eval() const override;
 	void setLeftNode(std::shared_ptr<Node>);
 	void setRightNode(std::shared_ptr<Node>);
+
+	int precedence() const;
+	double eval() const override;
 
 private:
 	static const std::map<OperatorType, int> precedence_;
