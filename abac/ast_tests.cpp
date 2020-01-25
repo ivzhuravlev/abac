@@ -1,3 +1,5 @@
+#ifdef RUN_TESTS
+
 #include "catch.hpp"
 #include "ast.h"
 #include <cstring>
@@ -105,3 +107,5 @@ TEST_CASE("Build AST with brackets", "[ast]")
 		REQUIRE(ast->eval() == 8);
 	}
 }
+
+#endif // RUN_TESTS
