@@ -1,5 +1,6 @@
 #include "catch.hpp"
 #include "ast.h"
+#include <cstring>
 
 using namespace calc;
 using namespace std;
@@ -56,9 +57,9 @@ TEST_CASE("Build AST", "[ast]")
 
 	SECTION("Division")
 	{
-		auto tokens = tokenize("25 / 2.5");
+		auto tokens = tokenize("25 / 2.5 / 2,5");
 		auto ast = buildAST(tokens);
-		REQUIRE(ast->eval() == 10);
+		REQUIRE(ast->eval() == 4);
 	}
 
 	SECTION("Division zero")
@@ -67,5 +68,40 @@ TEST_CASE("Build AST", "[ast]")
 		auto ast = buildAST(tokens);
 		REQUIRE_THROWS_AS(ast->eval() == 10, logic_error);
 	}
+}
 
+TEST_CASE("Build AST with brackets", "[ast]")
+{
+	SECTION("Brackets simple")
+	{
+		auto tokens = tokenize("(2 + 2) * 2");
+		auto ast = buildAST(tokens);
+		REQUIRE(ast->eval() == 8);
+	}
+
+	SECTION("Brackets harder")
+	{
+		auto tokens = tokenize("1 + (2 * (2.5 + 2.5 + (3 - 2))) - (3 / 1.5)");
+		auto ast = buildAST(tokens);
+		REQUIRE(ast->eval() == 11);
+	}
+
+	SECTION("Empty brackets")
+	{
+		auto tokens = tokenize("()");
+		try {
+			auto ast = buildAST(tokens);
+		}
+		catch (logic_error & e)
+		{
+			REQUIRE(std::strcmp(e.what(), "Incorrect expression") == 0);
+		}
+	}
+
+	SECTION("Empty brackets inside")
+	{
+		auto tokens = tokenize("(2 + 2)() * (2)");
+		auto ast = buildAST(tokens);
+		REQUIRE(ast->eval() == 8);
+	}
 }

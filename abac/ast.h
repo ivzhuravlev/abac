@@ -12,7 +12,9 @@ enum class OperatorType
 	Plus,
 	Minus,
 	Prod,
-	Div
+	Div,
+	LeftBracket,
+	RightBracket
 };
 
 class Node
@@ -32,6 +34,7 @@ public:
 
 	int precedence() const;
 	double eval() const override;
+	OperatorType type() const;
 
 private:
 	static const std::map<OperatorType, int> precedence_;
