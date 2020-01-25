@@ -74,6 +74,14 @@ vector<Token> calc::tokenize(string str)
 			result.push_back({ {c}, TokenType::OPERATION });
 			unary = true;
 		}
+		else
+		{
+			string wrongExpr;
+			iss >> wrongExpr;
+			wrongExpr.insert(begin(wrongExpr), c);
+			string error = string("Incorrect input: ") + wrongExpr;
+			throw logic_error(error.c_str());
+		}
 	}
 
 	return result;

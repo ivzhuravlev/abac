@@ -1,5 +1,6 @@
 #include "catch.hpp"
 #include "token.h"
+#include <cstring>
 
 using namespace calc;
 
@@ -101,4 +102,15 @@ TEST_CASE("Tokenize unary operators", "[token]")
 	REQUIRE(vec[2].value == "-2");
 	REQUIRE(vec[3].value == "+");
 	REQUIRE(vec[4].value == "2");
+}
+
+TEST_CASE("Tokenize incorrect expr", "[token]")
+{
+	try {
+		auto vec = tokenize("1.1 + 2.1 + abc");
+	}
+	catch (std::logic_error & e)
+	{
+		REQUIRE(std::strcmp(e.what(), "Incorrect input: abc") == 0);
+	}
 }
