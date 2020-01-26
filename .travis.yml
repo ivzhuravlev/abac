@@ -1,0 +1,29 @@
+language: cpp
+compiler: gcc
+
+branches:
+  only:
+    - master
+    
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      env: CXX_COMPILER=g++-8 C_COMPILER=gcc-8
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-8
+            - g++-8
+
+install:
+  - sudo apt install -qq cmake
+
+script:
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_CXX_COMPILER=${CXX_COMPILER} -DCMAKE_C_COMPILER=${C_COMPILER} ..
+  - make
+
