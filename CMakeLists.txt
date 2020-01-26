@@ -12,8 +12,14 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(H_FILES ast.h token.h catch.hpp)
-set(CPP_FILES main.cpp ast.cpp token.cpp ast_tests.cpp token_tests.cpp)
+set(H_FILES src/ast.h
+			src/token.h
+			src/catch.hpp)
+set(CPP_FILES src/main.cpp
+			src/ast.cpp
+			src/token.cpp
+			src/ast_tests.cpp
+			src/token_tests.cpp)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
