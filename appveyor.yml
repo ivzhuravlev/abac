@@ -1,0 +1,28 @@
+version: 1.0.{build}
+
+branches:
+  only:
+    - master
+
+clone_folder: c:\projects\abac
+    
+image:
+  - Visual Studio 2019
+
+platform:
+  - x64
+
+configuration:
+  - Debug
+  - Release
+  
+environment:
+  matrix:
+    - GENERATOR: "Visual Studio 16 2019"
+  
+before_build:
+  - cmake "-G%GENERATOR%" -DRUN_TESTS=ON -S. -Bbuild
+  
+build:
+  project: build\abac.sln
+
