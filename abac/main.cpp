@@ -1,11 +1,18 @@
 #ifndef RUN_TESTS
 #include <iostream>
 #include <iomanip>
+#include <cmath>
 
 #include "token.h"
 #include "ast.h"
 
 using namespace std;
+
+bool isInteger(double value)
+{
+	double intPart = 0;
+	return modf(value, &intPart) == 0.0;
+}
 
 int main(int argc, char** argv)
 {
@@ -22,7 +29,15 @@ int main(int argc, char** argv)
 		{
 			const auto tokens = calc::tokenize(expression);
 			const auto ast = calc::buildAST(tokens);
-			cout << fixed << setprecision(2) << ast->eval() << endl;
+			double result = ast->eval();
+			if (isInteger(result))
+			{
+				cout << result << endl;
+			}
+			else
+			{
+				cout << fixed << setprecision(2) << result << endl;
+			}
 		}
 		catch (logic_error & e)
 		{
