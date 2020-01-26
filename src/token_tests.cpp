@@ -1,3 +1,5 @@
+#ifdef RUN_TESTS
+
 #include "catch.hpp"
 #include "token.h"
 #include <cstring>
@@ -114,3 +116,5 @@ TEST_CASE("Tokenize incorrect expr", "[token]")
 		REQUIRE(std::strcmp(e.what(), "Incorrect input: abc") == 0);
 	}
 }
+
+#endif // RUN_TESTS

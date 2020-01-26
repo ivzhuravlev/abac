@@ -1,3 +1,5 @@
+#ifdef RUN_TESTS
+
 #include "catch.hpp"
 #include "ast.h"
 #include <cstring>
@@ -104,4 +106,27 @@ TEST_CASE("Build AST with brackets", "[ast]")
 		auto ast = buildAST(tokens);
 		REQUIRE(ast->eval() == 8);
 	}
+
+	SECTION("Wrong brackets")
+	{
+		auto tokensLeft = tokenize("2 + 2) * 2");
+		try {
+			auto ast = buildAST(tokensLeft);
+		}
+		catch (logic_error & e)
+		{
+			REQUIRE(std::strcmp(e.what(), "Incorrect expression") == 0);
+		}
+
+		auto tokensRight = tokenize("(2 + 2 * 2");
+		try {
+			auto ast = buildAST(tokensRight);
+		}
+		catch (logic_error & e)
+		{
+			REQUIRE(std::strcmp(e.what(), "Incorrect expression") == 0);
+		}
+	}
 }
+
+#endif // RUN_TESTS
