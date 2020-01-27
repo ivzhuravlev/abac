@@ -27,6 +27,7 @@ build:
   project: build\abac.sln
 
 test_script:
- - ps: echo $env:APPVEYOR_JOB_ID
- - ps: echo $env:PLATFORM
- - ps: echo $env:CONFIGURATION
+ - ps: set config $env:CONFIGURATION
+ - ps: .\build\bin\$config\abac.exe -r junit -o junit-results.xml
+ - ps: $wc = New-Object 'System.Net.WebClient'
+ - ps: '$wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\build\bin\$($env:CONFIGURATION)\junit-results.xml))'
